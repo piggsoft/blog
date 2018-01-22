@@ -1,12 +1,15 @@
 package com.piggsoft.blog.controller;
 
-import com.piggsoft.blog.model.User;
+import com.piggsoft.blog.dto.UserForm;
+import com.piggsoft.blog.po.User;
 import com.piggsoft.blog.security.SecurityService;
-import com.piggsoft.blog.service.UserService;
+import com.piggsoft.blog.service.IUserService;
+import com.piggsoft.blog.validater.UserNameValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,28 +18,41 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    private UserNameValidator userNameValidator;
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("userForm", new UserForm());
 
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@Valid User user, BindingResult bindingResult) {
+    public String registration(@Valid UserForm userForm, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
 
+        ValidationUtils.invokeValidator(userNameValidator, userForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+
+        User user = new User();
+        user.setUsername(userForm.getUsername());
+        user.setPassword(userForm.getPassword());
+
         userService.save(user);
 
-        securityService.autologin(user.getUsername(), user.getPasswordConfirm());
+        securityService.autologin(user.getUsername(), user.getPassword());
 
         return "redirect:/welcome";
     }

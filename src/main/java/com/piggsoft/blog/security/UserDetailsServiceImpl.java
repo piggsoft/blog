@@ -1,7 +1,7 @@
 package com.piggsoft.blog.security;
 
-import com.piggsoft.blog.model.Role;
-import com.piggsoft.blog.model.User;
+import com.piggsoft.blog.po.Role;
+import com.piggsoft.blog.po.User;
 import com.piggsoft.blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

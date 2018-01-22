@@ -1,9 +1,9 @@
 package com.piggsoft.blog.service;
 
 
-import com.piggsoft.blog.model.User;
+import com.piggsoft.blog.po.User;
 
-public interface UserService {
+public interface IUserService {
     void save(User user);
 
     User findByUsername(String username);

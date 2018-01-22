@@ -23,7 +23,7 @@
 <body>
 
 <div class="container">
-    <form method="post" action="/registration" th:action="@{/registration}" th:object="${user}" class="form-signin" >
+    <form method="post" action="/registration" th:action="@{/registration}" th:object="${userForm}" class="form-signin" >
         <h2 class="form-signin-heading">Create your account</h2>
         <div th:with="hasError = ${#fields.hasErrors('username')}" class="form-group" th:class="|form-group ${hasError ? 'has-error' : ''}|">
             <input type="text" name="username" th:field="*{username}" class="form-control" placeholder="Username" autofocus="true"/>
@@ -31,7 +31,7 @@
         </div>
         <div th:with="hasError = ${#fields.hasErrors('password')}" class="form-group" th:class="|form-group ${hasError ? 'has-error' : ''}|">
             <input type="password" name="password" th:field="*{password}" class="form-control" placeholder="Password"/>
-            <span th:if="${hasError}" th:text="${err}">error</span>
+            <span th:if="${hasError}" th:text="${password}">error</span>
         </div>
         <div th:with="hasError = ${#fields.hasErrors('passwordConfirm')}" class="form-group" th:class="|form-group ${hasError ? 'has-error' : ''}|">
             <input type="password" name="passwordConfirm" th:field="*{passwordConfirm}" class="form-control" placeholder="Confirm your password"/>

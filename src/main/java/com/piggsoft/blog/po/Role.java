@@ -1,4 +1,4 @@
-package com.piggsoft.blog.model;
+package com.piggsoft.blog.po;
 
 import javax.persistence.*;
 import java.util.Set;

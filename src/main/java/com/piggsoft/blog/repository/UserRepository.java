@@ -1,6 +1,6 @@
 package com.piggsoft.blog.repository;
 
-import com.piggsoft.blog.model.User;
+import com.piggsoft.blog.po.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

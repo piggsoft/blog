@@ -1,9 +1,9 @@
 package com.piggsoft.blog.service.impl;
 
-import com.piggsoft.blog.model.User;
+import com.piggsoft.blog.po.User;
 import com.piggsoft.blog.repository.RoleRepository;
 import com.piggsoft.blog.repository.UserRepository;
-import com.piggsoft.blog.service.UserService;
+import com.piggsoft.blog.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
