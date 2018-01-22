@@ -1,17 +1,22 @@
 package com.piggsoft.blog.model;
 
+import com.piggsoft.blog.validater.PropertyScriptAssert;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.ScriptAssert;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
-@ScriptAssert(lang = "javascript", script = "com.piggsoft.blog.model.User.checkConfirmPassword(this.passwrd, this.passwordConfirm)")
+@PropertyScriptAssert(lang = "javascript", script = "_this.passwordConfirm == _this.password", message = "{passwordConfirm.not.same}", property = "passwordConfirm")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,11 +30,6 @@ public class User {
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
-
-    public static boolean checkConfirmPassword(String password, String passwordConfirm) {
-        return passwordConfirm.equals(password);
-    }
 
     public Long getId() {
         return id;

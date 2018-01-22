@@ -54,6 +54,8 @@ spring:
         enabled: true
       view:
         suffix: .html
+  messages:
+    basename: messages
 logging:
   level:
     org.hibernate.SQL: trace
