@@ -56,6 +56,12 @@ spring:
         suffix: .html
   messages:
     basename: messages
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 47.92.32.247:9300
+      repositories:
+        enabled: true
 logging:
   level:
     org.hibernate.SQL: trace
