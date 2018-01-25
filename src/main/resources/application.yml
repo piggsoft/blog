@@ -57,6 +57,7 @@ spring:
   messages:
     basename: messages
   data:
+# spring 支持的elasticsearch 只到2.x
     elasticsearch:
       cluster-name: elasticsearch
       cluster-nodes: 47.92.32.247:9300
