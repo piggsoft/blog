@@ -69,3 +69,5 @@ logging:
     com.piggsoft: debug
 server:
   port: 8099
+dozer:
+  mappingFiles: classpath*:/dozer/*.xml

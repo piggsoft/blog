@@ -5,6 +5,7 @@ import com.piggsoft.blog.po.User;
 import com.piggsoft.blog.security.SecurityService;
 import com.piggsoft.blog.service.IUserService;
 import com.piggsoft.blog.validater.UserNameValidator;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,9 @@ public class UserController {
     @Autowired
     private UserNameValidator userNameValidator;
 
+    @Autowired
+    private Mapper mapper;
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new UserForm());
@@ -46,9 +50,7 @@ public class UserController {
             return "registration";
         }
 
-        User user = new User();
-        user.setUsername(userForm.getUsername());
-        user.setPassword(userForm.getPassword());
+        User user = mapper.map(userForm, User.class);
 
         userService.save(user);
 
